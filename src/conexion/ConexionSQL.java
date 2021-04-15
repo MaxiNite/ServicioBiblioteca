@@ -28,7 +28,7 @@ public class ConexionSQL {
 
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String connectionUrl = "jdbc:sqlserver://localhost:1433;" +  
+            String connectionUrl = "jdbc:sqlserver://26.19.68.139:1433;" +  
                 "databaseName=servicioBiblioteca;user=biblioteca;password=biblioteca;";
             Connection con = DriverManager.getConnection(connectionUrl);
             System.out.println("Conexion exitosa");
