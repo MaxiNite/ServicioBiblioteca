@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
  */
 public class PruebaConexion extends javax.swing.JFrame {
 
-    public static final String URL = "jdbc:mysql://26.19.68.139:1433/servicioBiblioteca";
-    public static final String DRIVER = "com.mysql.jdbc.Driver";
+    public static final String URL = "jdbc:mysql://localhost:1433";
+    public static final String DRIVER = "com.msql.jdbc.Driver";
     public static final String USUARIO = "biblioteca";
     public static final String PASSWORD = "biblioteca";
 
