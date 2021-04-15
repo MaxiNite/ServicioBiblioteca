@@ -5,16 +5,16 @@
  */
 package control;
 
-import objetosNegocio.Libro;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Dhtey
  */
-public interface IPersistencia {
-    public void RegistrarLibro(Libro libro);
-    public void ActualizarLibro(Libro libro);
-    public void EliminarLibro(Libro libro);
-    public void BuscarLibro(Libro libro);
-    public void PrestarLibro(Libro libro);
+public interface IPersistencia <T>{
+    public T buscar(T obj);
+    public void Registrar(T obj);
+    public void Actualizar(T obj);
+    public void Eliminar(T obj);
+    DefaultTableModel lista();
 }
