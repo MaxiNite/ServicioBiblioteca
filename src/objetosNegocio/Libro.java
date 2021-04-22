@@ -12,17 +12,34 @@ package objetosNegocio;
 public class Libro {
 
     private String nombre, descripccion, autor, genero;
-    private int cantidad;
+    private int id,cantidad;
 
     public Libro() {
     }
-
+    
     public Libro(String nombre, String descripccion, String autor, String genero, int cantidad) {
         this.nombre = nombre;
         this.descripccion = descripccion;
         this.autor = autor;
         this.genero = genero;
         this.cantidad = cantidad;
+    }
+    
+    public Libro(int id,String nombre, String descripccion, String autor, String genero, int cantidad) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripccion = descripccion;
+        this.autor = autor;
+        this.genero = genero;
+        this.cantidad = cantidad;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {

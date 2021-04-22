@@ -14,13 +14,8 @@ public class Ejemplar extends Libro{
 
     public Ejemplar() {
     }
-    public Ejemplar(String nombre, String descripccion, String autor, String genero, int cantidad) {
-        super(nombre, descripccion, autor, genero, cantidad);
-    }
-
-    public Ejemplar(int id, String nombre, String descripccion, String autor, String genero, int cantidad) {
-        super(nombre, descripccion, autor, genero, cantidad);
-        this.id = id;
+    public Ejemplar(int id,String nombre, String descripccion, String autor, String genero, int cantidad) {
+        super(id, nombre, descripccion, autor, genero, cantidad);
     }
 
     public int getId() {

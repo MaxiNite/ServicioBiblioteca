@@ -13,8 +13,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public interface IPersistencia <T>{
     public T buscar(T obj);
-    public void Registrar(T obj);
-    public void Actualizar(T obj);
-    public void Eliminar(T obj);
+    public boolean Registrar(T obj);
+    public boolean Actualizar(T obj);
+    public boolean Eliminar(T obj);
     DefaultTableModel lista();
 }

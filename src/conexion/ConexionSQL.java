@@ -5,44 +5,40 @@
  */
 package conexion;
 
-import static conexion.PruebaConexion.PASSWORD;
-import static conexion.PruebaConexion.URL;
-import static conexion.PruebaConexion.USUARIO;
-import java.sql.Connection;
+import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author alexis
- */
-public class ConexionSQL {
+public class ConexionSQL extends javax.swing.JFrame {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    // Declaramos la conexion a mysql
+    private static Connection con;
+    // Declaramos los datos de conexion a la bd
+    private static final String driver = "com.mysql.jdbc.Driver";
+    private static final String user = "adminBiblioteca";
+    private static final String pass = "biblioteca";
+    private static final String url = "jdbc:mysql://localhost:3306/serviciobiblioteca";
 
+    // Funcion que va conectarse a mi bd de mysql
+    public void conector() {
+        // Reseteamos a null la conexion a la bd
+        con = null;
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String connectionUrl = "jdbc:sqlserver://26.19.68.139:1433;" +  
-                "databaseName=servicioBiblioteca;user=biblioteca;password=biblioteca;";
-            Connection con = DriverManager.getConnection(connectionUrl);
-            System.out.println("Conexion exitosa");
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from Genero");
-
-            while(rs.next()){
-                String nombre = rs.getString(1);
-                System.out.println(nombre);
+            Class.forName(driver);
+            // Nos conectamos a la bd
+            con = (Connection) DriverManager.getConnection(url, user, pass);
+            // Si la conexion fue exitosa mostramos un mensaje de conexion exitosa
+            if (con != null) {
+                JOptionPane.showMessageDialog(null, "Conexion establecida");
             }
-            
-        } catch (Exception e) {
-            System.out.println(e);
+        } // Si la conexion NO fue exitosa mostramos un mensaje de error
+        catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null,"Error de conexion" + e);
         }
     }
-    
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 }

@@ -10,19 +10,19 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import javax.swing.table.DefaultTableModel;
 import objetosNegocio.Libro;
+import objetosNegocio.Utilitarios;
 
 /**
  *
  * @author Dhtey
  */
 public class EjemplarDao implements IPersistencia<Libro> {
-    
-    Connection cn = new Conexion().getCn();
 
-   
+    Connection cn = new Conexion().getCn();
+    Utilitarios uti = new Utilitarios();
 
     public EjemplarDao() {
-        
+
     }
 
     @Override
@@ -32,52 +32,55 @@ public class EjemplarDao implements IPersistencia<Libro> {
     }
 
     @Override
-    public void Registrar(Libro obj) {
-      boolean band=false;
+    public boolean Registrar(Libro obj) {
+        boolean band = false;
         try {
-            CallableStatement cs = cn.prepareCall("{call USP_AGREGAREJEMPLAR(?,?,?,?,?)}");
-            
-            cs.setString(1, obj.getNombre());
-            cs.setString(2, obj.getAutor());
-            cs.setString(3, obj.getDescripccion());
-            cs.setString(4, obj.getGenero());
-            cs.setInt(5, obj.getCantidad());
-            
-            if(cs.executeUpdate()>0)
-                band=true;
-            
-        } catch (Exception ex) {
-            ex.getStackTrace();
-            //uti.msj(ex.toString(), 0);
-        }    
-    }
+            CallableStatement cs = cn.prepareCall("{call USP_AGREGARLIBRO(?,?,?,?,?)}");
 
-    @Override
-    public void Actualizar(Libro obj) {
-         boolean band=false;
-        try {
-            CallableStatement cs = cn.prepareCall("{call USP_ACTUALIZAREJEMPLAR(?,?,?,?,?,?)}");
-            
             cs.setString(1, obj.getNombre());
             cs.setString(2, obj.getAutor());
             cs.setString(3, obj.getDescripccion());
             cs.setString(4, obj.getGenero());
             cs.setInt(5, obj.getCantidad());
-            cs.setString(6, obj.toString());
-            
-            if(cs.executeUpdate()>0)
-                band=true;
-            
+
+            if (cs.executeUpdate() > 0) {
+                band = true;
+            }
+
         } catch (Exception ex) {
-            ex.getStackTrace();
-            //uti.msj(ex.toString(), 0);
+            uti.msj(ex.toString(), 0);
         }
-        
+
+        return band;
     }
 
     @Override
-    public void Eliminar(Libro obj) {
+    public boolean Actualizar(Libro obj) {
+        boolean band = false;
+        try {
+            CallableStatement cs = cn.prepareCall("{call USP_ACTUALIZARLIBRO(?,?,?,?,?,?)}");
 
+            cs.setInt(1, obj.getId());
+            cs.setString(2, obj.getNombre());
+            cs.setString(3, obj.getAutor());
+            cs.setString(4, obj.getDescripccion());
+            cs.setString(5, obj.getGenero());
+            cs.setInt(6, obj.getCantidad());
+
+            if (cs.executeUpdate() > 0) {
+                band = true;
+            }
+
+        } catch (Exception ex) {
+            uti.msj(ex.toString(), 0);
+        }
+
+        return band;
+    }
+
+    @Override
+    public boolean Eliminar(Libro obj) {
+        return true;
     }
 
     @Override

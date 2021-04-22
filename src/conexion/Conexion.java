@@ -5,9 +5,12 @@
  */
 package conexion;
 
-import java.sql.Connection;
+
+import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
+
 import javax.swing.JOptionPane;
+import objetosNegocio.Utilitarios;
 
 /**
  *
@@ -17,10 +20,10 @@ public class Conexion {
     
     Connection cn = null;
     Utilitarios uti = new Utilitarios();
-    private static String driver = "com.mysql.jdbc.Driver";
-    private static String usuario = "root";
-    private static String password = "root";
-    private static String url = "jdbc:mysql://localhost:3306/bd_repaso";
+    private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    private static String usuario = "adminBiblioteca";
+    private static String password = "biblioteca";
+    private static String url = "jdbc:mysql://localhost:3306/serviciobiblioteca";
 
     static {
         try {
@@ -32,7 +35,7 @@ public class Conexion {
 
     public Connection getCn(){
         try {
-            cn = DriverManager.getConnection(url, usuario, password);
+            cn =(Connection) DriverManager.getConnection(url, usuario, password);
         } catch (Exception e) {
             uti.msj(e.toString(), 0);
         }
