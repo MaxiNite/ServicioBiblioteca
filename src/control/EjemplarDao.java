@@ -27,12 +27,29 @@ public class EjemplarDao implements IPersistencia<Libro> {
 
     @Override
     public Libro buscar(Libro obj) {
+        return null;
 
     }
 
     @Override
     public void Registrar(Libro obj) {
-
+      boolean band=false;
+        try {
+            CallableStatement cs = cn.prepareCall("{call USP_AGREGAREJEMPLAR(?,?,?,?,?)}");
+            
+            cs.setString(1, obj.getNombre());
+            cs.setString(2, obj.getAutor());
+            cs.setString(3, obj.getDescripccion());
+            cs.setString(4, obj.getGenero());
+            cs.setInt(5, obj.getCantidad());
+            
+            if(cs.executeUpdate()>0)
+                band=true;
+            
+        } catch (Exception ex) {
+            ex.getStackTrace();
+            //uti.msj(ex.toString(), 0);
+        }    
     }
 
     @Override
@@ -65,6 +82,7 @@ public class EjemplarDao implements IPersistencia<Libro> {
 
     @Override
     public DefaultTableModel lista() {
+        return null;
 
     }
 

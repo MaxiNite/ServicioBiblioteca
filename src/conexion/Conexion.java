@@ -16,11 +16,11 @@ import javax.swing.JOptionPane;
 public class Conexion {
     
     Connection cn = null;
-//    Utilitarios uti = new Utilitarios();
+    Utilitarios uti = new Utilitarios();
     private static String driver = "com.mysql.jdbc.Driver";
-    private static String usuario = "biblioteca";
-    private static String password = "biblioteca";
-    private static String url = "jdbc:mysql://26.19.68.139/servicioBiblioteca";
+    private static String usuario = "root";
+    private static String password = "root";
+    private static String url = "jdbc:mysql://localhost:3306/bd_repaso";
 
     static {
         try {
@@ -34,8 +34,7 @@ public class Conexion {
         try {
             cn = DriverManager.getConnection(url, usuario, password);
         } catch (Exception e) {
-            e.getStackTrace();
-//            uti.msj(e.toString(), 0);
+            uti.msj(e.toString(), 0);
         }
         return cn;
     }

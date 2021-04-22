@@ -60,7 +60,7 @@ public class ActualizarLibro2 extends javax.swing.JFrame {
         jLabel4.setText("Género:");
 
         cbGenero.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selección", "Fantasia", "Misterio" }));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Descripción:");
@@ -110,7 +110,7 @@ public class ActualizarLibro2 extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sCantidadLibrosDisp, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(sCantidadLibrosDisp, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
