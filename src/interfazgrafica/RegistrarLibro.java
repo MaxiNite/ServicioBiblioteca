@@ -5,6 +5,10 @@
  */
 package interfazgrafica;
 
+import control.EjemplarDao;
+import javax.swing.JOptionPane;
+import objetosNegocio.Libro;
+
 /**
  *
  * @author Asus
@@ -16,6 +20,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
      */
     public RegistrarLibro() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -41,7 +46,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        lnAutor = new javax.swing.JTextField();
+        lbAutor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registrar Libro");
@@ -94,11 +99,16 @@ public class RegistrarLibro extends javax.swing.JFrame {
         btnCancelar.setBackground(new java.awt.Color(255, 0, 0));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Autor:");
 
-        lnAutor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbAutor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,7 +137,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
                             .addContainerGap()
                             .addComponent(jLabel7)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(lnAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lbAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,7 +169,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(lnAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -184,11 +194,49 @@ public class RegistrarLibro extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
+        // Valida el nombre del libro
+        try {
+            if (lbNombreLibro.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Nombre de libro vacío", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                //Valida el nombre del autor
+                if (lbAutor.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Nombre del autor vacío", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    //Valida la cantidad de libros
+                    Object o = sCantidadLibrosDisp.getValue();
+                    int n = (int) o;
+                    if (n < 1) {
+                        JOptionPane.showMessageDialog(null, "Cantidad del libros menor a 1", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        } finally {
+            //codigo agregar
+            Libro libro = new Libro();
+
+            libro.setAutor(lbAutor.getText());
+            libro.setDescripccion(taDescripcion.getText());
+            libro.setGenero(cbGenero.getSelectedItem().toString());
+            libro.setNombre(lbNombreLibro.getText());
+            Object o = sCantidadLibrosDisp.getValue();
+            int n = (int) o;
+            libro.setCantidad(n);
+
+            EjemplarDao dao = new EjemplarDao();
+            dao.Registrar(libro);
+        }
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void cbGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbGeneroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbGeneroActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,8 +285,8 @@ public class RegistrarLibro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField lbAutor;
     private javax.swing.JTextField lbNombreLibro;
-    private javax.swing.JTextField lnAutor;
     private javax.swing.JSpinner sCantidadLibrosDisp;
     private javax.swing.JTextArea taDescripcion;
     // End of variables declaration//GEN-END:variables

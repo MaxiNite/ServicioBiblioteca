@@ -5,6 +5,15 @@
  */
 package interfazgrafica;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import control.EjemplarDao;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import objetosNegocio.Libro;
+
 /**
  *
  * @author Asus
@@ -14,8 +23,27 @@ public class ActualizarLibro2 extends javax.swing.JFrame {
     /**
      * Creates new form ActualizarLibro2
      */
-    public ActualizarLibro2() {
+    public Libro libro;
+
+    public ActualizarLibro2(Libro libro) {
         initComponents();
+        setLocationRelativeTo(null);
+        this.libro = libro;
+    }
+
+    public void actualizar(Connection conexion, int id) throws SQLException {
+        try {
+            PreparedStatement consulta;
+
+            consulta = (PreparedStatement) conexion.prepareStatement("UPDATE FROM libro WHERE libro.id_libro = " + id);
+            consulta.executeUpdate();
+            JOptionPane.showMessageDialog(this, "¡Se actualizo el libro con exito!");
+            //conexion.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error con el registro");
+            throw new SQLException(ex);
+        }
     }
 
     /**
@@ -45,6 +73,11 @@ public class ActualizarLibro2 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Actualizar Libro");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Actualizar un Libro");
@@ -77,10 +110,20 @@ public class ActualizarLibro2 extends javax.swing.JFrame {
         btnActualizar.setBackground(new java.awt.Color(0, 255, 0));
         btnActualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setBackground(new java.awt.Color(255, 0, 0));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Autor:");
@@ -166,40 +209,58 @@ public class ActualizarLibro2 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+        System.out.println(libro.toString());
+
+        lbAutor.setText(libro.getAutor());
+        lbNombreLibro.setText(libro.getNombre());
+        taDescripcion.setText(libro.getDescripccion());
+        cbGenero.setSelectedItem(libro.getGenero());
+        sCantidadLibrosDisp.setValue(libro.getCantidad());
+
+
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+            if (lbNombreLibro.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Nombre de libro vacío", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                //Valida el nombre del autor
+                if (lbAutor.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Nombre del autor vacío", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    //Valida la cantidad de libros
+                    Object o = sCantidadLibrosDisp.getValue();
+                    int n = (int) o;
+                    if (n < 1) {
+                        JOptionPane.showMessageDialog(null, "Cantidad del libros menor a 1", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ActualizarLibro2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ActualizarLibro2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ActualizarLibro2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ActualizarLibro2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        } finally {
+            //codigo agregar            
+            libro.setAutor(lbAutor.getText());
+            libro.setDescripccion(taDescripcion.getText());
+            libro.setGenero(cbGenero.getSelectedItem().toString());
+            libro.setNombre(lbNombreLibro.getText());
+            Object o = sCantidadLibrosDisp.getValue();
+            int n = (int) o;
+            libro.setCantidad(n);
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ActualizarLibro2().setVisible(true);
-            }
-        });
-    }
+            EjemplarDao dao = new EjemplarDao();
+            dao.Actualizar(libro);
+            JOptionPane.showMessageDialog(null, "Libro Actualizado", "Exito", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;

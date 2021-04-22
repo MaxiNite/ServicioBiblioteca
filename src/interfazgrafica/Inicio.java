@@ -5,6 +5,10 @@
  */
 package interfazgrafica;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Asus
@@ -16,6 +20,7 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -48,14 +53,29 @@ public class Inicio extends javax.swing.JFrame {
         btnRegistrarLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnRegistrarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/book.png"))); // NOI18N
         btnRegistrarLibro.setText("Registrar Libro");
+        btnRegistrarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarLibroActionPerformed(evt);
+            }
+        });
 
         btnActulizarLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnActulizarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/refresh.png"))); // NOI18N
         btnActulizarLibro.setText("Actualizar Libro");
+        btnActulizarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActulizarLibroActionPerformed(evt);
+            }
+        });
 
         btnEliminarLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnEliminarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/delete.png"))); // NOI18N
         btnEliminarLibro.setText("Eliminar Libro");
+        btnEliminarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarLibroActionPerformed(evt);
+            }
+        });
 
         btnBuscarLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/search.png"))); // NOI18N
@@ -67,6 +87,11 @@ public class Inicio extends javax.swing.JFrame {
 
         btnCerrarSesion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,6 +144,39 @@ public class Inicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarLibroActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            EliminarLibro eliminarLibro = new EliminarLibro(this, true);
+            eliminarLibro.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnEliminarLibroActionPerformed
+
+    private void btnActulizarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActulizarLibroActionPerformed
+        // TODO add your handling code here:
+
+            // TODO add your handling code here:
+            ActualizarLibro actualizarLibro = new ActualizarLibro();
+            actualizarLibro.setVisible(true);
+        
+    }//GEN-LAST:event_btnActulizarLibroActionPerformed
+
+    private void btnRegistrarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarLibroActionPerformed
+        // TODO add your handling code here:
+        RegistrarLibro registrarLibro = new RegistrarLibro();
+        registrarLibro.setVisible(true);
+    }//GEN-LAST:event_btnRegistrarLibroActionPerformed
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     /**
      * @param args the command line arguments

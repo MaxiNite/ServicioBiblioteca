@@ -5,18 +5,44 @@
  */
 package interfazgrafica;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
+import conexion.Conexion;
+import control.EjemplarDao;
+import java.awt.BorderLayout;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import objetosNegocio.Libro;
+
 /**
  *
  * @author Asus
  */
 public class EliminarLibro extends javax.swing.JFrame {
 
+    private Connection conexion = null;
+    private Statement comando = null;
+    private ResultSet resultados = null;
+    //private JTable tabla = null;
+    DefaultTableModel modelo = null;
+
     /**
      * Creates new form EliminarLibro
      */
-    public EliminarLibro() {
+    public EliminarLibro(java.awt.Frame parent, boolean modal) throws SQLException, ClassNotFoundException {
         initComponents();
+        setLocationRelativeTo(null);
+        llenarTabla();
     }
+
+    EjemplarDao dao = new EjemplarDao();
+    ArrayList<Libro> libros = new ArrayList();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,12 +57,17 @@ public class EliminarLibro extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaLibros = new javax.swing.JTable();
         btnEliminar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Eliminar Libro");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Eliminar un Libro");
@@ -48,7 +79,7 @@ public class EliminarLibro extends javax.swing.JFrame {
 
         jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaLibros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -67,14 +98,24 @@ public class EliminarLibro extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaLibros);
 
         btnEliminar.setBackground(new java.awt.Color(255, 0, 0));
         btnEliminar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,40 +164,107 @@ public class EliminarLibro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+
+        tablaLibros.setModel(dao.lista());
+    }//GEN-LAST:event_formWindowOpened
+    private void leerDatosLibros() throws ClassNotFoundException, SQLException {
+        String instruccion = "SELECT * FROM libro";
+        conexion = Conexion.obtener();
+        comando = (Statement) conexion.createStatement();
+        resultados = comando.executeQuery(instruccion);
+    }
+
+    public void eliminar(Connection conexion, int id) throws SQLException {
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+            PreparedStatement consulta;
+
+            consulta = (PreparedStatement) conexion.prepareStatement("DELETE FROM libro WHERE libro.id_libro = " + id);
+            consulta.executeUpdate();
+            JOptionPane.showMessageDialog(this, "¡Se eliminó el libro con exito!");
+            llenarTabla();
+            //conexion.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error con el registro");
+            throw new SQLException(ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EliminarLibro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void llenarTabla() throws SQLException, ClassNotFoundException {
+        libros.removeAll(libros);
+        this.leerDatosLibros();
+        // Nombre de las columnas como apareceran en la tabla
+        String[] columnas = {"Codigo", "Nombre", "Descripcción", "Autor", "Genero", "Cantidad"};
+        modelo = new DefaultTableModel();
+        int id, cantidad;
+        String nombre, descripcion, genero, autor;
+
+        this.setLayout(new BorderLayout());
+        modelo.setColumnIdentifiers(columnas);
+        tablaLibros.setModel(modelo);
+
+        try {
+
+            while (resultados.next() == true) {
+                id = resultados.getInt("id_libro");
+                nombre = resultados.getString("nombre");
+                descripcion = resultados.getString("descripcion");
+                autor = resultados.getString("autor");
+                genero = resultados.getString("genero");
+                cantidad = resultados.getInt("cantidad");
+
+                libros.add(new Libro(id, nombre, descripcion, autor, genero, cantidad));
+                System.out.println("Se agregó: " + new Libro(id, nombre, descripcion, autor, genero, cantidad).toString());
+
+            }
+
+            if (libros.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No hay libros registrados");
+            } else {
+                for (Libro elemento : libros) {
+                    modelo.addRow(new Object[]{elemento.getId(),elemento.getNombre(), elemento.getDescripccion(), elemento.getAutor(), elemento.getGenero(), elemento.getCantidad()});
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EliminarLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EliminarLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EliminarLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EliminarLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EliminarLibro().setVisible(true);
-            }
-        });
+            //this.cerrar();
+        } catch (SQLException e) {
+            System.out.println("Error de lectura de BD\n\n");
+            e.printStackTrace();
+        }
+
     }
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        if (tablaLibros.getSelectedRow() >= 0) {
+            try {
+                Libro libro = libros.get(tablaLibros.getSelectedRow());
+                String mensaje = "¿Seguro que quiere eliminar el libro: " + libro.getNombre() + "?";
+                int reply = JOptionPane.showConfirmDialog(null, mensaje, "Eliminar libro", JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.YES_OPTION) {
+                    eliminar(Conexion.obtener(), libro.getId());
+                } else {
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(EliminarLibro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(EliminarLibro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Elija un libro a eliminar");
+        }
+
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -165,6 +273,6 @@ public class EliminarLibro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaLibros;
     // End of variables declaration//GEN-END:variables
 }

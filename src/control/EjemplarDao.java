@@ -8,6 +8,7 @@ package control;
 import conexion.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
 import objetosNegocio.Libro;
 import objetosNegocio.Utilitarios;
@@ -38,8 +39,8 @@ public class EjemplarDao implements IPersistencia<Libro> {
             CallableStatement cs = cn.prepareCall("{call USP_AGREGARLIBRO(?,?,?,?,?)}");
 
             cs.setString(1, obj.getNombre());
-            cs.setString(2, obj.getAutor());
-            cs.setString(3, obj.getDescripccion());
+            cs.setString(2, obj.getDescripccion());
+            cs.setString(3, obj.getAutor());
             cs.setString(4, obj.getGenero());
             cs.setInt(5, obj.getCantidad());
 
@@ -62,8 +63,8 @@ public class EjemplarDao implements IPersistencia<Libro> {
 
             cs.setInt(1, obj.getId());
             cs.setString(2, obj.getNombre());
-            cs.setString(3, obj.getAutor());
-            cs.setString(4, obj.getDescripccion());
+            cs.setString(3, obj.getDescripccion());
+            cs.setString(4, obj.getAutor());
             cs.setString(5, obj.getGenero());
             cs.setInt(6, obj.getCantidad());
 
@@ -79,13 +80,48 @@ public class EjemplarDao implements IPersistencia<Libro> {
     }
 
     @Override
-    public boolean Eliminar(Libro obj) {
-        return true;
+    public boolean Eliminar(int codigo) {
+        boolean band=false;
+        try {
+            CallableStatement cs = cn.prepareCall("{call USP_ELIMINARLIBRO(?)}");
+            cs.setInt(1, codigo);
+            
+            if(cs.executeUpdate()>0)
+                band=true;
+            
+        } catch (Exception ex) {
+            uti.msj(ex.toString(), 0);
+        }
+        
+        return band;
     }
 
     @Override
     public DefaultTableModel lista() {
-        return null;
+        DefaultTableModel mdl = new DefaultTableModel();
+        mdl.addColumn("Codigo");
+        mdl.addColumn("Nombre");
+        mdl.addColumn("Descripción");
+        mdl.addColumn("Autor");
+        mdl.addColumn("Genero");
+        mdl.addColumn("Cantidad");
+        
+        try {
+            CallableStatement cs=cn.prepareCall("{call USP_LISTADOLIBROS}");
+            ResultSet rs=cs.executeQuery();
+            
+            while(rs.next()){
+                Object data[]={rs.getString(1),rs.getString(2),
+                               rs.getString(3),rs.getString(4),
+                               rs.getString(5),rs.getString(6)};
+                
+                mdl.addRow(data);
+            }
+            
+        } catch (Exception ex) {
+            uti.msj(ex.toString(), 0);
+        }
+        return mdl;
 
     }
 

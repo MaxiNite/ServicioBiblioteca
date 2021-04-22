@@ -110,6 +110,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Registrar Libro"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarLibroActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnActulizarLibro">
       <Properties>
@@ -121,6 +124,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Actualizar Libro"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActulizarLibroActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnEliminarLibro">
       <Properties>
@@ -132,6 +138,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Eliminar Libro"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarLibroActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnBuscarLibro">
       <Properties>
@@ -162,6 +171,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Cerrar Sesi&#xf3;n"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCerrarSesionActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -15,6 +15,6 @@ public interface IPersistencia <T>{
     public T buscar(T obj);
     public boolean Registrar(T obj);
     public boolean Actualizar(T obj);
-    public boolean Eliminar(T obj);
+    public boolean Eliminar(int codigo);
     DefaultTableModel lista();
 }

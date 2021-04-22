@@ -5,6 +5,8 @@
  */
 package interfazgrafica;
 
+import control.EjemplarDao;
+
 /**
  *
  * @author Asus
@@ -16,6 +18,7 @@ public class BuscarLibro2 extends javax.swing.JFrame {
      */
     public BuscarLibro2() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -31,11 +34,16 @@ public class BuscarLibro2 extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaLibros = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Buscar Libro");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Buscar un Libro");
@@ -45,7 +53,7 @@ public class BuscarLibro2 extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Resultados de la búsqueda:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaLibros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -64,7 +72,7 @@ public class BuscarLibro2 extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaLibros);
 
         btnRegresar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnRegresar.setText("Regresar");
@@ -113,6 +121,12 @@ public class BuscarLibro2 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        EjemplarDao dao = new EjemplarDao();
+        tablaLibros.setModel(dao.lista());
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -154,6 +168,6 @@ public class BuscarLibro2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaLibros;
     // End of variables declaration//GEN-END:variables
 }
