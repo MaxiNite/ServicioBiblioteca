@@ -13,12 +13,14 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
  * @author Asus
  */
 public class BuscarLibro extends javax.swing.JFrame {
-
+    public String dato;
+    public int opcion;
     /**
      * Creates new form BuscarLibro
      */
     public BuscarLibro() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -35,9 +37,7 @@ public class BuscarLibro extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnNombre = new javax.swing.JButton();
         btnAutor = new javax.swing.JButton();
-        btnDescripcion = new javax.swing.JButton();
         btnGenero = new javax.swing.JButton();
-        btnCantidad = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,27 +67,11 @@ public class BuscarLibro extends javax.swing.JFrame {
             }
         });
 
-        btnDescripcion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnDescripcion.setText("Descripción");
-        btnDescripcion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDescripcionActionPerformed(evt);
-            }
-        });
-
         btnGenero.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnGenero.setText("Género");
         btnGenero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGeneroActionPerformed(evt);
-            }
-        });
-
-        btnCantidad.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnCantidad.setText("Cantidad");
-        btnCantidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCantidadActionPerformed(evt);
             }
         });
 
@@ -120,23 +104,16 @@ public class BuscarLibro extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnAutor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(52, 52, 52)))
+                        .addComponent(btnNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(100, 100, 100))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnCancelar)
-                        .addGap(161, 161, 161))))
+                        .addGap(161, 161, 161))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(152, 152, 152))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,12 +129,8 @@ public class BuscarLibro extends javax.swing.JFrame {
                     .addComponent(btnNombre)
                     .addComponent(btnAutor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDescripcion)
-                    .addComponent(btnGenero))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCantidad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(btnGenero)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(btnCancelar)
                 .addContainerGap())
         );
@@ -173,27 +146,30 @@ public class BuscarLibro extends javax.swing.JFrame {
     private void btnNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNombreActionPerformed
         // TODO add your handling code here:
         String nombre = JOptionPane.showInputDialog(this, "Buscar Libros por Nombre", "Nombre del Libro a buscar", INFORMATION_MESSAGE);
+        dato=nombre;
+        opcion=1;
+        BuscarLibro2 bl2=new BuscarLibro2(nombre,opcion);
+        bl2.setVisible(true);
     }//GEN-LAST:event_btnNombreActionPerformed
 
     private void btnAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutorActionPerformed
         // TODO add your handling code here:
         String autor = JOptionPane.showInputDialog(this, "Buscar Libros por Autor", "Nombre del Autor a buscar", INFORMATION_MESSAGE);
+        dato=autor;
+        opcion=2;
+        BuscarLibro2 bl2=new BuscarLibro2(autor,opcion);
+        bl2.setVisible(true);
     }//GEN-LAST:event_btnAutorActionPerformed
-
-    private void btnDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescripcionActionPerformed
-        // TODO add your handling code here:
-        String descripcion = JOptionPane.showInputDialog(this, "Buscar Libros por Descripción", "Descripción a buscar", INFORMATION_MESSAGE);
-    }//GEN-LAST:event_btnDescripcionActionPerformed
 
     private void btnGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneroActionPerformed
         // TODO add your handling code here:
         String genero = JOptionPane.showInputDialog(this, "Buscar Libros por Género", "Género a buscar", INFORMATION_MESSAGE);
+        dato=genero;
+        opcion=3;
+        BuscarLibro2 bl2=new BuscarLibro2(genero,opcion);
+        bl2.setVisible(true);
+        
     }//GEN-LAST:event_btnGeneroActionPerformed
-
-    private void btnCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCantidadActionPerformed
-        // TODO add your handling code here:
-        String cantidad = JOptionPane.showInputDialog(this, "Buscar Libros por Cantidad", "Buscar libros que tengan la cantidad", INFORMATION_MESSAGE);
-    }//GEN-LAST:event_btnCantidadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,8 +209,6 @@ public class BuscarLibro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAutor;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnCantidad;
-    private javax.swing.JButton btnDescripcion;
     private javax.swing.JButton btnGenero;
     private javax.swing.JButton btnNombre;
     private javax.swing.JLabel jLabel1;

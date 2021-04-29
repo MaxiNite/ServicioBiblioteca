@@ -6,9 +6,12 @@
 package control;
 
 import conexion.Conexion;
+import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 import objetosNegocio.Libro;
 import objetosNegocio.Utilitarios;
@@ -96,6 +99,102 @@ public class EjemplarDao implements IPersistencia<Libro> {
         return band;
     }
 
+    @Override
+    public DefaultTableModel buscarLibroGenero(String gen) {
+        DefaultTableModel mdl = new DefaultTableModel();
+        mdl.addColumn("Codigo");
+        mdl.addColumn("Nombre");
+        mdl.addColumn("Descripción");
+        mdl.addColumn("Autor");
+        mdl.addColumn("Genero");
+        mdl.addColumn("Cantidad");
+        
+        try {
+            CallableStatement cs=cn.prepareCall("{call USP_LISTADOLIBROGENERO(?)}");
+            cs.setString(1, gen);
+            ResultSet rs=cs.executeQuery();
+            
+            while(rs.next()){
+                Object data[]={rs.getString(1),rs.getString(2),
+                               rs.getString(3),rs.getString(4),
+                               rs.getString(5),rs.getString(6)};
+                
+                mdl.addRow(data);
+            }
+            
+        } catch (Exception ex) {
+            uti.msj(ex.toString(), 0);
+        }
+        return mdl;
+
+    
+
+    }
+    
+    @Override
+    public DefaultTableModel buscarLibroAutor(String aut) {
+        DefaultTableModel mdl = new DefaultTableModel();
+        mdl.addColumn("Codigo");
+        mdl.addColumn("Nombre");
+        mdl.addColumn("Descripción");
+        mdl.addColumn("Autor");
+        mdl.addColumn("Genero");
+        mdl.addColumn("Cantidad");
+        
+        try {
+            CallableStatement cs=cn.prepareCall("{call USP_LISTADOLIBROAUTOR(?)}");
+            cs.setString(1, aut);
+            ResultSet rs=cs.executeQuery();
+            
+            while(rs.next()){
+                Object data[]={rs.getString(1),rs.getString(2),
+                               rs.getString(3),rs.getString(4),
+                               rs.getString(5),rs.getString(6)};
+                
+                mdl.addRow(data);
+            }
+            
+        } catch (Exception ex) {
+            uti.msj(ex.toString(), 0);
+        }
+        return mdl;
+
+    
+
+    }
+    
+    @Override
+    public DefaultTableModel buscarLibroNombre(String nom) {
+        DefaultTableModel mdl = new DefaultTableModel();
+        mdl.addColumn("Codigo");
+        mdl.addColumn("Nombre");
+        mdl.addColumn("Descripción");
+        mdl.addColumn("Autor");
+        mdl.addColumn("Genero");
+        mdl.addColumn("Cantidad");
+        
+        try {
+            CallableStatement cs=cn.prepareCall("{call USP_LISTADOLIBRONOMBRE(?)}");
+            cs.setString(1, nom);
+            ResultSet rs=cs.executeQuery();
+            
+            while(rs.next()){
+                Object data[]={rs.getString(1),rs.getString(2),
+                               rs.getString(3),rs.getString(4),
+                               rs.getString(5),rs.getString(6)};
+                
+                mdl.addRow(data);
+            }
+            
+        } catch (Exception ex) {
+            uti.msj(ex.toString(), 0);
+        }
+        return mdl;
+
+    
+
+    }
+    
     @Override
     public DefaultTableModel lista() {
         DefaultTableModel mdl = new DefaultTableModel();

@@ -225,6 +225,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
 
             EjemplarDao dao = new EjemplarDao();
             dao.Registrar(libro);
+            JOptionPane.showMessageDialog(null, "Registro exitoso", "Exito!", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }//GEN-LAST:event_btnRegistrarActionPerformed

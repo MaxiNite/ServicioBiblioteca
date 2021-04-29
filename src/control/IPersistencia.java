@@ -16,5 +16,8 @@ public interface IPersistencia <T>{
     public boolean Registrar(T obj);
     public boolean Actualizar(T obj);
     public boolean Eliminar(int codigo);
+    DefaultTableModel buscarLibroNombre(String nom);
+    DefaultTableModel buscarLibroAutor(String au);
+    DefaultTableModel buscarLibroGenero(String gen);
     DefaultTableModel lista();
 }

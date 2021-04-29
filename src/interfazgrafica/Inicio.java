@@ -80,6 +80,11 @@ public class Inicio extends javax.swing.JFrame {
         btnBuscarLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/search.png"))); // NOI18N
         btnBuscarLibro.setText("Buscar Libro");
+        btnBuscarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarLibroActionPerformed(evt);
+            }
+        });
 
         btnPrestarLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnPrestarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/lend.png"))); // NOI18N
@@ -177,6 +182,12 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnBuscarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarLibroActionPerformed
+        // TODO add your handling code here:
+        BuscarLibro bl=new BuscarLibro();
+        bl.setVisible(true);
+    }//GEN-LAST:event_btnBuscarLibroActionPerformed
 
     /**
      * @param args the command line arguments

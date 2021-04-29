@@ -6,21 +6,26 @@
 package interfazgrafica;
 
 import control.EjemplarDao;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 /**
  *
  * @author Asus
  */
 public class BuscarLibro2 extends javax.swing.JFrame {
-
+    String dato;
+    int opcion;
     /**
      * Creates new form BuscarLibro2
      */
-    public BuscarLibro2() {
+    public BuscarLibro2(String dato,int opcion) {
         initComponents();
         setLocationRelativeTo(null);
+        this.dato=dato;
+        this.opcion=opcion;
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,7 +134,20 @@ public class BuscarLibro2 extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         EjemplarDao dao = new EjemplarDao();
-        tablaLibros.setModel(dao.lista());
+        switch(opcion){
+            case 1:
+                tablaLibros.setModel(dao.buscarLibroNombre(dato));      
+                break;
+            case 2:
+                tablaLibros.setModel(dao.buscarLibroAutor(dato));
+                break;
+            case 3:
+                tablaLibros.setModel(dao.buscarLibroGenero(dato));
+                break;
+            default:
+                break;
+        }
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -167,7 +185,6 @@ public class BuscarLibro2 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarLibro2().setVisible(true);
             }
         });
     }
