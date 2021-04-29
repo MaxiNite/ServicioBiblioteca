@@ -5,6 +5,9 @@
  */
 package interfazgrafica;
 
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+
 /**
  *
  * @author Asus
@@ -50,18 +53,43 @@ public class BuscarLibro extends javax.swing.JFrame {
 
         btnNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnNombre.setText("Nombre");
+        btnNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNombreActionPerformed(evt);
+            }
+        });
 
         btnAutor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnAutor.setText("Autor");
+        btnAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAutorActionPerformed(evt);
+            }
+        });
 
         btnDescripcion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnDescripcion.setText("Descripción");
+        btnDescripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDescripcionActionPerformed(evt);
+            }
+        });
 
         btnGenero.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnGenero.setText("Género");
+        btnGenero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGeneroActionPerformed(evt);
+            }
+        });
 
         btnCantidad.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCantidad.setText("Cantidad");
+        btnCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCantidadActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -141,6 +169,31 @@ public class BuscarLibro extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNombreActionPerformed
+        // TODO add your handling code here:
+        String nombre = JOptionPane.showInputDialog(this, "Buscar Libros por Nombre", "Nombre del Libro a buscar", INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnNombreActionPerformed
+
+    private void btnAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutorActionPerformed
+        // TODO add your handling code here:
+        String autor = JOptionPane.showInputDialog(this, "Buscar Libros por Autor", "Nombre del Autor a buscar", INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnAutorActionPerformed
+
+    private void btnDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescripcionActionPerformed
+        // TODO add your handling code here:
+        String descripcion = JOptionPane.showInputDialog(this, "Buscar Libros por Descripción", "Descripción a buscar", INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnDescripcionActionPerformed
+
+    private void btnGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneroActionPerformed
+        // TODO add your handling code here:
+        String genero = JOptionPane.showInputDialog(this, "Buscar Libros por Género", "Género a buscar", INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnGeneroActionPerformed
+
+    private void btnCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCantidadActionPerformed
+        // TODO add your handling code here:
+        String cantidad = JOptionPane.showInputDialog(this, "Buscar Libros por Cantidad", "Buscar libros que tengan la cantidad", INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnCantidadActionPerformed
 
     /**
      * @param args the command line arguments
