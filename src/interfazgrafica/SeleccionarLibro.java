@@ -205,9 +205,10 @@ public class SeleccionarLibro extends javax.swing.JFrame {
                 autor = resultados.getString("autor");
                 genero = resultados.getString("genero");
                 cantidad = resultados.getInt("cantidad");
-
-                libros.add(new Libro(id, nombre, descripcion, autor, genero, cantidad));
-                System.out.println("Se agregó: " + new Libro(id, nombre, descripcion, autor, genero, cantidad).toString());
+                if (cantidad != 0) {
+                    libros.add(new Libro(id, nombre, descripcion, autor, genero, cantidad));
+                    System.out.println("Se agregó: " + new Libro(id, nombre, descripcion, autor, genero, cantidad).toString());
+                }
 
             }
 
@@ -226,7 +227,7 @@ public class SeleccionarLibro extends javax.swing.JFrame {
         }
 
     }
-    
+
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
 
         // TODO add your handling code here:
@@ -241,14 +242,15 @@ public class SeleccionarLibro extends javax.swing.JFrame {
             String genero = tablaLibros.getValueAt(tablaLibros.getSelectedRow(), 4).toString();
             String cantidad = tablaLibros.getValueAt(tablaLibros.getSelectedRow(), 5).toString();
             int can = Integer.parseInt(cantidad);
-            System.out.println(idN+nombre+descripcion+autor+genero+can);
-            
-            Libro libro = new Libro(idN,nombre,descripcion,autor,genero,can);
+            System.out.println(idN + nombre + descripcion + autor + genero + can);
+
+            Libro libro = new Libro(idN, nombre, descripcion, autor, genero, can);
             libroAuxiliar = libro;
             this.setVisible(false);
-            PrestarLibro pl =new PrestarLibro();
+            PrestarLibro pl = new PrestarLibro();
             pl.nomLibro.setText(libroAuxiliar.getNombre());
-            pl.libro=libroAuxiliar;
+            pl.btnPrestar.setEnabled(true);
+            pl.libro = libroAuxiliar;
             pl.setVisible(true);
             System.out.println(libroAuxiliar.toString());
             System.out.println(pl.libro.getId());

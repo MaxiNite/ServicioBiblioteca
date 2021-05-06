@@ -5,7 +5,9 @@
  */
 package interfazgrafica;
 
+import control.EjemplarDao;
 import control.PrestamoDAO;
+import javax.swing.JOptionPane;
 import objetosNegocio.Libro;
 import objetosNegocio.Prestamo;
 
@@ -16,8 +18,9 @@ import objetosNegocio.Prestamo;
 public class PrestarLibro extends javax.swing.JFrame {
 
     SeleccionarLibro seleccionarLibro2 = new SeleccionarLibro();
-    PrestamoDAO dao=new PrestamoDAO();
+    PrestamoDAO dao = new PrestamoDAO();
     Libro libro;
+
     /**
      * Creates new form PrestarLibro
      */
@@ -83,6 +86,7 @@ public class PrestarLibro extends javax.swing.JFrame {
         btnPrestar.setBackground(new java.awt.Color(0, 255, 0));
         btnPrestar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnPrestar.setText("Prestar");
+        btnPrestar.setEnabled(false);
         btnPrestar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPrestarActionPerformed(evt);
@@ -239,14 +243,33 @@ public class PrestarLibro extends javax.swing.JFrame {
 
     private void btnPrestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestarActionPerformed
         // TODO add your handling code here:
-        String fecha;
-        fecha = fecha = cbDia.getSelectedItem().toString() + "/" + cbMes.getSelectedItem().toString() + "/" + cbAño.getSelectedItem().toString();
-        Prestamo prestamo= new Prestamo();
-        prestamo.setFechaPrestamo(fecha);
-        prestamo.setGrado(cmGradoNinhio.getSelectedItem().toString());
-        prestamo.setNombreLibro(nomLibro.getText());
-        prestamo.setNinho(tfNuevoNinhio.getText());
-        dao.Registrar(prestamo);
+        try {
+            if (nomLibro.getText() == "") {
+                JOptionPane.showMessageDialog(null, "Seleccione un Libro", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                if (tfNuevoNinhio.getText() == "") {
+                    JOptionPane.showMessageDialog(null, "Ingrese el nombre del Niño", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } finally {
+            String fecha;
+            fecha = fecha = cbDia.getSelectedItem().toString() + "/" + cbMes.getSelectedItem().toString() + "/" + cbAño.getSelectedItem().toString();
+            Prestamo prestamo = new Prestamo();
+            prestamo.setFechaPrestamo(fecha);
+            prestamo.setGrado(cmGradoNinhio.getSelectedItem().toString());
+            prestamo.setNombreLibro(nomLibro.getText());
+            prestamo.setNinho(tfNuevoNinhio.getText());
+
+            libro.setCantidad(libro.getCantidad() - 1);
+
+            EjemplarDao daoL = new EjemplarDao();
+            daoL.Actualizar(libro);
+            dao.Registrar(prestamo);
+            JOptionPane.showMessageDialog(null, "Prestamo Realizado", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            this.setVisible(false);
+        }
+
+
     }//GEN-LAST:event_btnPrestarActionPerformed
 
     /**
@@ -287,7 +310,7 @@ public class PrestarLibro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnLibro;
-    private javax.swing.JButton btnPrestar;
+    public javax.swing.JButton btnPrestar;
     private javax.swing.JComboBox<String> cbAño;
     private javax.swing.JComboBox<String> cbDia;
     private javax.swing.JComboBox<String> cbMes;
