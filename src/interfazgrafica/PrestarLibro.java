@@ -5,17 +5,25 @@
  */
 package interfazgrafica;
 
+import control.PrestamoDAO;
+import objetosNegocio.Libro;
+import objetosNegocio.Prestamo;
+
 /**
  *
  * @author Asus
  */
 public class PrestarLibro extends javax.swing.JFrame {
 
+    SeleccionarLibro seleccionarLibro2 = new SeleccionarLibro();
+    PrestamoDAO dao=new PrestamoDAO();
+    Libro libro;
     /**
      * Creates new form PrestarLibro
      */
     public PrestarLibro() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -42,9 +50,10 @@ public class PrestarLibro extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         cbMes = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbAño = new javax.swing.JComboBox<>();
         btnLibro = new javax.swing.JButton();
         lbLibro = new javax.swing.JLabel();
+        nomLibro = new javax.swing.JLabel();
 
         jLabel5.setText("jLabel5");
 
@@ -74,10 +83,20 @@ public class PrestarLibro extends javax.swing.JFrame {
         btnPrestar.setBackground(new java.awt.Color(0, 255, 0));
         btnPrestar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnPrestar.setText("Prestar");
+        btnPrestar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrestarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setBackground(new java.awt.Color(255, 0, 0));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         tfNuevoNinhio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tfNuevoNinhio.setToolTipText("");
@@ -94,13 +113,22 @@ public class PrestarLibro extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("/");
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        cbAño.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cbAño.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
 
         btnLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnLibro.setText("Seleccionar Libro");
+        btnLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLibroActionPerformed(evt);
+            }
+        });
 
         lbLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        nomLibro.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
+        nomLibro.setForeground(new java.awt.Color(0, 0, 0));
+        nomLibro.setText("Nombre libro");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,8 +149,13 @@ public class PrestarLibro extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLibro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbLibro))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(lbLibro))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nomLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -148,8 +181,8 @@ public class PrestarLibro extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(61, 61, Short.MAX_VALUE))
+                        .addComponent(cbAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(46, 46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +195,8 @@ public class PrestarLibro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(btnLibro)
-                    .addComponent(lbLibro))
+                    .addComponent(lbLibro)
+                    .addComponent(nomLibro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -172,7 +206,7 @@ public class PrestarLibro extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel9)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -190,6 +224,30 @@ public class PrestarLibro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLibroActionPerformed
+        // TODO add your handling code here:
+
+        seleccionarLibro2.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnLibroActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnPrestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestarActionPerformed
+        // TODO add your handling code here:
+        String fecha;
+        fecha = fecha = cbDia.getSelectedItem().toString() + "/" + cbMes.getSelectedItem().toString() + "/" + cbAño.getSelectedItem().toString();
+        Prestamo prestamo= new Prestamo();
+        prestamo.setFechaPrestamo(fecha);
+        prestamo.setGrado(cmGradoNinhio.getSelectedItem().toString());
+        prestamo.setNombreLibro(nomLibro.getText());
+        prestamo.setNinho(tfNuevoNinhio.getText());
+        dao.Registrar(prestamo);
+    }//GEN-LAST:event_btnPrestarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,10 +288,10 @@ public class PrestarLibro extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnLibro;
     private javax.swing.JButton btnPrestar;
+    private javax.swing.JComboBox<String> cbAño;
     private javax.swing.JComboBox<String> cbDia;
     private javax.swing.JComboBox<String> cbMes;
     private javax.swing.JComboBox<String> cmGradoNinhio;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -244,6 +302,7 @@ public class PrestarLibro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lbLibro;
+    public javax.swing.JLabel nomLibro;
     private javax.swing.JTextField tfNuevoNinhio;
     // End of variables declaration//GEN-END:variables
 }

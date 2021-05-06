@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 import objetosNegocio.Libro;
+import objetosNegocio.Prestamo;
 import objetosNegocio.Utilitarios;
 
 /**
@@ -81,6 +82,7 @@ public class EjemplarDao implements IPersistencia<Libro> {
 
         return band;
     }
+    
 
     @Override
     public boolean Eliminar(int codigo) {
@@ -98,6 +100,8 @@ public class EjemplarDao implements IPersistencia<Libro> {
         
         return band;
     }
+    
+    
 
     @Override
     public DefaultTableModel buscarLibroGenero(String gen) {
@@ -223,5 +227,7 @@ public class EjemplarDao implements IPersistencia<Libro> {
         return mdl;
 
     }
+
+    
 
 }

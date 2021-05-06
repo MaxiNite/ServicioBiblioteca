@@ -89,6 +89,11 @@ public class Inicio extends javax.swing.JFrame {
         btnPrestarLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnPrestarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/lend.png"))); // NOI18N
         btnPrestarLibro.setText("Prestar Libro");
+        btnPrestarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrestarLibroActionPerformed(evt);
+            }
+        });
 
         btnCerrarSesion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCerrarSesion.setText("Cerrar Sesión");
@@ -188,6 +193,12 @@ public class Inicio extends javax.swing.JFrame {
         BuscarLibro bl=new BuscarLibro();
         bl.setVisible(true);
     }//GEN-LAST:event_btnBuscarLibroActionPerformed
+
+    private void btnPrestarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestarLibroActionPerformed
+        // TODO add your handling code here:
+        PrestarLibro pl=new PrestarLibro();
+        pl.setVisible(true);
+    }//GEN-LAST:event_btnPrestarLibroActionPerformed
 
     /**
      * @param args the command line arguments

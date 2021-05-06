@@ -69,7 +69,7 @@ public class SeleccionarLibro extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Actualizar un Libro");
+        jLabel1.setText("Seleccione un Libro");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/book.png"))); // NOI18N
 
@@ -244,11 +244,16 @@ public class SeleccionarLibro extends javax.swing.JFrame {
             System.out.println(idN+nombre+descripcion+autor+genero+can);
             
             Libro libro = new Libro(idN,nombre,descripcion,autor,genero,can);
-
-            ActualizarLibro2 actualizarLibro2 = new ActualizarLibro2(libro);
-            actualizarLibro2.setVisible(true);
+            libroAuxiliar = libro;
+            this.setVisible(false);
+            PrestarLibro pl =new PrestarLibro();
+            pl.nomLibro.setText(libroAuxiliar.getNombre());
+            pl.libro=libroAuxiliar;
+            pl.setVisible(true);
+            System.out.println(libroAuxiliar.toString());
+            System.out.println(pl.libro.getId());
         } else {
-            JOptionPane.showMessageDialog(this, "Elija un libro a actualizar");
+            JOptionPane.showMessageDialog(this, "Elija un libro");
         }
 
 
