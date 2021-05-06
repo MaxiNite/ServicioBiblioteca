@@ -27,7 +27,7 @@ public class Conexion {
             //modificar con tus params
             //Cris:"jdbc:mysql://localhost:3306/asistencias", "root", ""
             //Miranda:"jdbc:mysql://localhost:3306/asistencias", "root", "1234"
-            cnx = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/serviciobiblioteca", "adminBiblioteca", "biblioteca");
+            cnx = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/serviciobiblioteca?autoReconnect=true&useSSL=false", "adminBiblioteca", "biblioteca");
          } catch (SQLException ex) {
             throw new SQLException(ex);
          } catch (ClassNotFoundException ex) {
@@ -49,7 +49,7 @@ public class Conexion {
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static String usuario = "adminBiblioteca";
     private static String password = "biblioteca";
-    private static String url = "jdbc:mysql://localhost:3306/serviciobiblioteca";
+    private static String url = "jdbc:mysql://localhost:3306/serviciobiblioteca?autoReconnect=true&useSSL=false";
 
     static {
         try {
