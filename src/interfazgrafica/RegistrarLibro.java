@@ -226,6 +226,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
             EjemplarDao dao = new EjemplarDao();
             dao.Registrar(libro);
             JOptionPane.showMessageDialog(null, "Registro exitoso", "Exito!", JOptionPane.INFORMATION_MESSAGE);
+            mLimpiar();
         }
 
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -291,4 +292,13 @@ public class RegistrarLibro extends javax.swing.JFrame {
     private javax.swing.JSpinner sCantidadLibrosDisp;
     private javax.swing.JTextArea taDescripcion;
     // End of variables declaration//GEN-END:variables
+    
+    public void mLimpiar() {
+        lbNombreLibro.setText("");
+        lbAutor.setText("");
+        cbGenero.setSelectedIndex(0);
+        taDescripcion.setText("");
+        sCantidadLibrosDisp.setValue(0);
+    }
+
 }

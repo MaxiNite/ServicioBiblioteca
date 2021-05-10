@@ -28,6 +28,7 @@ public class Conexion {
             //Cris:"jdbc:mysql://localhost:3306/asistencias", "root", ""
             //Miranda:"jdbc:mysql://localhost:3306/asistencias", "root", "1234"
             cnx = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/serviciobiblioteca?autoReconnect=true&useSSL=false", "adminBiblioteca", "biblioteca");
+            
          } catch (SQLException ex) {
             throw new SQLException(ex);
          } catch (ClassNotFoundException ex) {
