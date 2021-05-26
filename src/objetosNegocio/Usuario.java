@@ -10,25 +10,31 @@ package objetosNegocio;
  * @author Dhtey
  */
 public class Usuario {
-    private String nombreUsuario, nombre, apellido, contrasena, puesto; 
+    private int idUsuario;
+    private String nombre, tipo; 
 
     public Usuario() {
     }
-
-    public Usuario(String nombreUsuario, String nombre, String apellido, String contrasena, String puesto) {
-        this.nombreUsuario = nombreUsuario;
+    
+    public Usuario(String nombre, String tipo) {
         this.nombre = nombre;
-        this.apellido = apellido;
-        this.contrasena = contrasena;
-        this.puesto = puesto;
+        this.tipo = tipo;
+        
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public Usuario(int idUsuario, String nombre, String tipo) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.tipo = tipo;
+        
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNombre() {
@@ -39,34 +45,17 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
-    public String getPuesto() {
-        return puesto;
-    }
-
-    public void setPuesto(String puesto) {
-        this.puesto = puesto;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override
     public String toString() {
-        return "Usuario " + "Nombre del Usuario= " + nombreUsuario + 
-                ", nombre= " + nombre + ", apellido= " + apellido + 
-                ", contrasena= " + contrasena + ", puesto= " + puesto;
+        return "Usuario{" + "idUsuario=" + idUsuario + ", nombre=" + nombre + ", tipo=" + tipo + '}';
     }
+    
 }

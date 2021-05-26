@@ -5,15 +5,9 @@
  */
 package interfazgrafica;
 
-
-
-
-
-
-
 import com.mysql.jdbc.Connection;
-import conexion.conexionSQL;
-import java.sql.PreparedStatement;
+import conexion.Conexion;
+
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -24,11 +18,12 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
-    conexionSQL cc = new conexionSQL();
-    Connection con = (Connection) cc.conexion();
-    
+    Conexion cc = new Conexion();
+    Connection con = (Connection) cc.getCn();
+
     public Login() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -137,49 +132,58 @@ public class Login extends javax.swing.JFrame {
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         String usuario = txtUsuario.getText();
         String pass = String.valueOf(txtPass.getPassword());
-        if(usuario.equals("admin")&& pass.equals("admin123")){
+        if (usuario.equals("admin") && pass.equals("admin123")) {
             InicioAdmin admin = new InicioAdmin();
             admin.setVisible(true);
             this.setVisible(false);
-        }if(!usuario.equals("admin")&& !pass.equals("admin123")) {
+        }
+        if (!usuario.equals("admin") && !pass.equals("admin123")) {
             ValidarUsuario();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Error de acceso! ");
         }
-    
+
     }//GEN-LAST:event_btnIngresarActionPerformed
-    
-    
-    public void ValidarUsuario(){
-        
+
+    public void ValidarUsuario() {
+
         int resultado = 0;
         String usuario = txtUsuario.getText();
         String pass = String.valueOf(txtPass.getPassword());
-        
-        String SQL= "select * from usuarios where usuario='"+usuario+"' and pass='"+pass+"' ";
-        
+
+        String SQL = "select * from usuarios where usuario='" + usuario + "' and pass='" + pass + "' ";
+
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(SQL);
-            
-            if(rs.next()){
+            String tipo;
+
+            if (rs.next()) {
                 resultado = 1;
-                
+                tipo = rs.getString("tipo");
+                System.out.println(tipo);
                 if (resultado == 1) {
-                    
-                    Inicio form = new Inicio();
-                    form.setVisible(true);
-                    this.dispose();
+                    if (tipo.equals("Administrador")) {
+                        InicioAdmin form = new InicioAdmin();
+                        form.setVisible(true);
+                        this.dispose();
+                    } else {
+                        Inicio form = new Inicio();
+                        form.setVisible(true);
+                        this.dispose();
+                    }
+
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Error de acceso, usuario no registrado! ");
             }
-            
+
         } catch (Exception e) {
-            
-            JOptionPane.showMessageDialog(null, "Error "+ e.getMessage());
+
+            JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
         }
     }
+
     /**
      * @param args the command line arguments
      */

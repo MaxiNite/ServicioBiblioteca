@@ -5,6 +5,10 @@
  */
 package interfazgrafica;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Asus
@@ -16,6 +20,7 @@ public class InicioAdmin extends javax.swing.JFrame {
      */
     public InicioAdmin() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -30,14 +35,13 @@ public class InicioAdmin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnRegistrarLibro = new javax.swing.JButton();
-        btnActualizarLibro = new javax.swing.JButton();
-        btnEliminarLibro = new javax.swing.JButton();
         btnBuscarLibro = new javax.swing.JButton();
         btnPrestarLibro = new javax.swing.JButton();
-        btnRegistrarUsuario = new javax.swing.JButton();
-        btnActualizarUsuario = new javax.swing.JButton();
         btnEliminarUsuario = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
+        btnEliminarLibro = new javax.swing.JButton();
+        btnActualizarLibro = new javax.swing.JButton();
+        btnRegistrarUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Registro Bibliotecario");
@@ -51,56 +55,78 @@ public class InicioAdmin extends javax.swing.JFrame {
         btnRegistrarLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnRegistrarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/book.png"))); // NOI18N
         btnRegistrarLibro.setText("Registrar Libro");
-
-        btnActualizarLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnActualizarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/refresh.png"))); // NOI18N
-        btnActualizarLibro.setText("Actualizar Libro");
-
-        btnEliminarLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnEliminarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/delete.png"))); // NOI18N
-        btnEliminarLibro.setText("Eliminar Libro");
+        btnRegistrarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarLibroActionPerformed(evt);
+            }
+        });
 
         btnBuscarLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/search.png"))); // NOI18N
         btnBuscarLibro.setText("Buscar Libro");
+        btnBuscarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarLibroActionPerformed(evt);
+            }
+        });
 
         btnPrestarLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnPrestarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/lend.png"))); // NOI18N
         btnPrestarLibro.setText("Prestar Libro");
-
-        btnRegistrarUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnRegistrarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/book.png"))); // NOI18N
-        btnRegistrarUsuario.setText("Registar Usuario");
-
-        btnActualizarUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnActualizarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/book.png"))); // NOI18N
-        btnActualizarUsuario.setText("Actualizar Usuario");
+        btnPrestarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrestarLibroActionPerformed(evt);
+            }
+        });
 
         btnEliminarUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnEliminarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/book.png"))); // NOI18N
         btnEliminarUsuario.setText("Eliminar Usuario");
+        btnEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarUsuarioActionPerformed(evt);
+            }
+        });
 
         btnCerrarSesion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+
+        btnEliminarLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnEliminarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/delete.png"))); // NOI18N
+        btnEliminarLibro.setText("Eliminar Libro");
+        btnEliminarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarLibroActionPerformed(evt);
+            }
+        });
+
+        btnActualizarLibro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnActualizarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/refresh.png"))); // NOI18N
+        btnActualizarLibro.setText("Actualizar Libro");
+        btnActualizarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarLibroActionPerformed(evt);
+            }
+        });
+
+        btnRegistrarUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnRegistrarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazgrafica/book.png"))); // NOI18N
+        btnRegistrarUsuario.setText("Registrar Usuario");
+        btnRegistrarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarUsuarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnActualizarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                    .addComponent(btnActualizarLibro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                    .addComponent(btnPrestarLibro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRegistrarLibro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRegistrarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBuscarLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEliminarLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEliminarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(16, 16, 16))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -114,6 +140,29 @@ public class InicioAdmin extends javax.swing.JFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel2)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnRegistrarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBuscarLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(6, 6, 6))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnEliminarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                                .addContainerGap())))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnPrestarLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnRegistrarLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnActualizarLibro, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEliminarLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,21 +172,19 @@ public class InicioAdmin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegistrarLibro)
-                    .addComponent(btnEliminarLibro))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRegistrarLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEliminarLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizarLibro)
-                    .addComponent(btnBuscarLibro))
+                    .addComponent(btnBuscarLibro)
+                    .addComponent(btnActualizarLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPrestarLibro)
-                    .addComponent(btnRegistrarUsuario))
+                .addComponent(btnPrestarLibro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizarUsuario)
-                    .addComponent(btnEliminarUsuario))
+                    .addComponent(btnEliminarUsuario)
+                    .addComponent(btnRegistrarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCerrarSesion)
                 .addContainerGap(17, Short.MAX_VALUE))
@@ -145,6 +192,63 @@ public class InicioAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegistrarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarLibroActionPerformed
+        // TODO add your handling code here:
+        RegistrarLibro registrarLibro = new RegistrarLibro();
+        registrarLibro.setVisible(true);
+    }//GEN-LAST:event_btnRegistrarLibroActionPerformed
+
+    private void btnEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarLibroActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            EliminarLibro eliminarLibro = new EliminarLibro(this, true);
+            eliminarLibro.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnEliminarLibroActionPerformed
+
+    private void btnActualizarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarLibroActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+            ActualizarLibro actualizarLibro = new ActualizarLibro();
+            actualizarLibro.setVisible(true);
+    }//GEN-LAST:event_btnActualizarLibroActionPerformed
+
+    private void btnBuscarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarLibroActionPerformed
+        // TODO add your handling code here:
+        BuscarLibro bl=new BuscarLibro();
+        bl.setVisible(true);
+    }//GEN-LAST:event_btnBuscarLibroActionPerformed
+
+    private void btnPrestarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestarLibroActionPerformed
+        // TODO add your handling code here:
+        PrestarLibro pl=new PrestarLibro();
+        pl.setVisible(true);
+    }//GEN-LAST:event_btnPrestarLibroActionPerformed
+
+    private void btnEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUsuarioActionPerformed
+        // TODO add your handling code here:
+        EliminarUsuario eliminarUsuario = new EliminarUsuario();
+        eliminarUsuario.setVisible(true);
+    }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
+
+    private void btnRegistrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarUsuarioActionPerformed
+        // TODO add your handling code here:
+        RegistrarUsuario registrarUsuario = new RegistrarUsuario();
+        registrarUsuario.setVisible(true);
+    }//GEN-LAST:event_btnRegistrarUsuarioActionPerformed
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        // TODO add your handling code here:
+        Login login = new Login();
+        login.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,7 +288,6 @@ public class InicioAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarLibro;
-    private javax.swing.JButton btnActualizarUsuario;
     private javax.swing.JButton btnBuscarLibro;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnEliminarLibro;
