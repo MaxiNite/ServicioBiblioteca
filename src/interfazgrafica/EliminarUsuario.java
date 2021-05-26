@@ -212,7 +212,7 @@ public class EliminarUsuario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "No hay usuarios registrados");
             } else {
                 for (Usuario elemento : usuarios) {
-                    modelo.addRow(new Object[]{elemento.getNombre(),  elemento.getTipo()});
+                    modelo.addRow(new Object[]{elemento.getNombre(), elemento.getTipo()});
                 }
             }
 

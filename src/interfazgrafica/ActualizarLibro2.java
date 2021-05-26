@@ -235,22 +235,25 @@ public class ActualizarLibro2 extends javax.swing.JFrame {
                     int n = (int) o;
                     if (n < 1) {
                         JOptionPane.showMessageDialog(null, "Cantidad del libros menor a 1", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        //codigo agregar            
+                        libro.setAutor(lbAutor.getText());
+                        libro.setDescripccion(taDescripcion.getText());
+                        libro.setGenero(cbGenero.getSelectedItem().toString());
+                        libro.setNombre(lbNombreLibro.getText());
+                        Object a = sCantidadLibrosDisp.getValue();
+                        int m = (int) a;
+                        libro.setCantidad(m);
+
+                        EjemplarDao dao = new EjemplarDao();
+                        dao.Actualizar(libro);
+                        JOptionPane.showMessageDialog(null, "Libro Actualizado", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                        this.setVisible(false);
                     }
                 }
             }
         } finally {
-            //codigo agregar            
-            libro.setAutor(lbAutor.getText());
-            libro.setDescripccion(taDescripcion.getText());
-            libro.setGenero(cbGenero.getSelectedItem().toString());
-            libro.setNombre(lbNombreLibro.getText());
-            Object o = sCantidadLibrosDisp.getValue();
-            int n = (int) o;
-            libro.setCantidad(n);
 
-            EjemplarDao dao = new EjemplarDao();
-            dao.Actualizar(libro);
-            JOptionPane.showMessageDialog(null, "Libro Actualizado", "Exito", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 

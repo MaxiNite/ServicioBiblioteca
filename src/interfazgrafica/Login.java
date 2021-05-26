@@ -175,7 +175,7 @@ public class Login extends javax.swing.JFrame {
 
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Error de acceso, usuario no registrado! ");
+                JOptionPane.showMessageDialog(null, "Error de acceso, usuario no registrado o contraseña incorrecta! ");
             }
 
         } catch (Exception e) {

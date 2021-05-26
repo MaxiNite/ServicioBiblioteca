@@ -97,8 +97,8 @@ public class UsuarioDao implements IPersistencia<Libro> {
             ResultSet rs=cs.executeQuery();
             
             while(rs.next()){
-                Object data[]={rs.getString(2),rs.getString(2),
-                               rs.getString(4),rs.getString(4)};
+                Object data[]={rs.getString(2),
+                               rs.getString(4)};
                 
                 mdl.addRow(data);
             }

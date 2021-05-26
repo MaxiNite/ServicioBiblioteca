@@ -231,6 +231,7 @@ public class ActualizarLibro extends javax.swing.JFrame {
 
         // TODO add your handling code here:
         //codigo agregar
+        
         if (tablaLibros.getSelectedRowCount() >= 0) {
 
             String id = tablaLibros.getValueAt(tablaLibros.getSelectedRow(), 0).toString();
@@ -250,6 +251,7 @@ public class ActualizarLibro extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Elija un libro a actualizar");
         }
+        this.setVisible(false);
 
 
     }//GEN-LAST:event_btnContinuarActionPerformed
