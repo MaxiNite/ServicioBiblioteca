@@ -233,7 +233,14 @@ public class InicioAdmin extends javax.swing.JFrame {
 
     private void btnEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUsuarioActionPerformed
         // TODO add your handling code here:
-        EliminarUsuario eliminarUsuario = new EliminarUsuario();
+        EliminarUsuario eliminarUsuario = null;
+        try {
+            eliminarUsuario = new EliminarUsuario();
+        } catch (SQLException ex) {
+            Logger.getLogger(InicioAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InicioAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
         eliminarUsuario.setVisible(true);
     }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
 

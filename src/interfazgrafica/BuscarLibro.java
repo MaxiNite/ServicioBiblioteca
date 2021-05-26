@@ -40,7 +40,7 @@ public class BuscarLibro extends javax.swing.JFrame {
         btnGenero = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar Libro");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N

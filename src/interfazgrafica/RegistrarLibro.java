@@ -48,7 +48,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         lbAutor = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Libro");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -208,25 +208,27 @@ public class RegistrarLibro extends javax.swing.JFrame {
                     int n = (int) o;
                     if (n < 1) {
                         JOptionPane.showMessageDialog(null, "Cantidad del libros menor a 1", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        //codigo agregar
+                        Libro libro = new Libro();
+
+                        libro.setAutor(lbAutor.getText());
+                        libro.setDescripccion(taDescripcion.getText());
+                        libro.setGenero(cbGenero.getSelectedItem().toString());
+                        libro.setNombre(lbNombreLibro.getText());
+                        Object a = sCantidadLibrosDisp.getValue();
+                        int m = (int) a;
+                        libro.setCantidad(m);
+
+                        EjemplarDao dao = new EjemplarDao();
+                        dao.Registrar(libro);
+                        JOptionPane.showMessageDialog(null, "Registro exitoso", "Exito!", JOptionPane.INFORMATION_MESSAGE);
+                        mLimpiar();
                     }
                 }
             }
         } finally {
-            //codigo agregar
-            Libro libro = new Libro();
 
-            libro.setAutor(lbAutor.getText());
-            libro.setDescripccion(taDescripcion.getText());
-            libro.setGenero(cbGenero.getSelectedItem().toString());
-            libro.setNombre(lbNombreLibro.getText());
-            Object o = sCantidadLibrosDisp.getValue();
-            int n = (int) o;
-            libro.setCantidad(n);
-
-            EjemplarDao dao = new EjemplarDao();
-            dao.Registrar(libro);
-            JOptionPane.showMessageDialog(null, "Registro exitoso", "Exito!", JOptionPane.INFORMATION_MESSAGE);
-            mLimpiar();
         }
 
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -292,7 +294,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
     private javax.swing.JSpinner sCantidadLibrosDisp;
     private javax.swing.JTextArea taDescripcion;
     // End of variables declaration//GEN-END:variables
-    
+
     public void mLimpiar() {
         lbNombreLibro.setText("");
         lbAutor.setText("");

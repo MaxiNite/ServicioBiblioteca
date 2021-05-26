@@ -58,7 +58,7 @@ public class EliminarUsuario extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -166,7 +166,7 @@ public class EliminarUsuario extends javax.swing.JFrame {
         try {
             PreparedStatement consulta;
 
-            consulta = (PreparedStatement) conexion.prepareStatement("DELETE FROM usuario WHERE usuario.id = " + id);
+            consulta = (PreparedStatement) conexion.prepareStatement("DELETE FROM usuarios WHERE usuarios.id = " + id);
             consulta.executeUpdate();
             JOptionPane.showMessageDialog(this, "¡Se eliminó el usuario con exito!");
             llenarTabla();
@@ -199,12 +199,12 @@ public class EliminarUsuario extends javax.swing.JFrame {
             while (resultados.next() == true) {
                 
                 id = resultados.getInt("id");
-                nombre = resultados.getString("nombre");
+                nombre = resultados.getString("usuario");
                 contraseña = resultados.getBlob("pass");
                 tipo = resultados.getString("tipo");
 
-                usuarios.add(new Usuario(nombre, tipo));
-                System.out.println("Se agregó: " + new Usuario(nombre, tipo).toString());
+                usuarios.add(new Usuario(id, nombre, tipo));
+                System.out.println("Se agregó: " + new Usuario(id, nombre, tipo).toString());
 
             }
 
